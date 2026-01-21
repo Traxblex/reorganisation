@@ -1,4 +1,5 @@
-<?php include('layout/header.php'); ?>
+<?php include('../layout/header.php'); ?>
+<title>Fitsport - À propos</title>
 <div class="container mt-5 pt-5">
     <h1 class="text-center mb-4" style="font-family: 'Anton', sans-serif; font-size: 4rem; color: #DC3545;">À PROPOS DE FITSPORT</h1>
     <p class="lead text-center mb-5" style="font-size: 1.5rem;">
@@ -30,7 +31,9 @@
                 Prêt à faire le premier pas vers une vie plus saine et plus active ? Rejoignez FITSPORT aujourd'hui et découvrez
                 comment nous pouvons vous aider à atteindre vos objectifs de fitness !
             </p>
+        </div>
+    </div>
 </div>
-<?php include('layout/footer.php'); ?>
+<?php include('../layout/footer.php'); ?>
 
 

@@ -1,3 +1,5 @@
+<?php include '../layout/header.php'; ?>
+<title>Fitsport - Inscription</title>
 <link href="../frontend/login/css/styles.css" rel="stylesheet">
 
 <div class="container" style="margin-top: 100px;">

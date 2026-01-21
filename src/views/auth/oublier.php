@@ -1,3 +1,5 @@
+<?php include '../layout/header.php'; ?>
+<title>Fitsport - Connexion</title>
 <link href="../frontend/login/css/sb-admin-2.min.css" rel="stylesheet">
 
 <div class="container" style="margin-top: 100px;">
