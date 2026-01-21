@@ -1,0 +1,93 @@
+  html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .promo-card {
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .promo-card:hover {
+            transform: scale(1.05);
+        }
+        .promo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+        .promo-content {
+            position: relative;
+            z-index: 2;
+        }
+        .promo-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        .promo-highlight {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            color: #FFD700;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .promo-date {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .promo-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .promo-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .promo-scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .promo-scroll-container::-webkit-scrollbar-thumb {
+            background: #DC3545;
+            border-radius: 10px;
+        }
+        .promo-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #a02834;
+        }
+        .promo-card-wrapper {
+            flex: 0 0 calc(100% / 3 - 14px);
+            min-width: 280px;
+        }
+        @media (max-width: 768px) {
+            .promo-card-wrapper {
+                flex: 0 0 calc(100% / 2 - 10px);
+                min-width: 200px;
+            }
+        }
+        @media (max-width: 576px) { 
+            .promo-card-wrapper {
+                flex: 0 0 90vw;
+                min-width: 280px;
+            }
+        }
