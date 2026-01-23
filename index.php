@@ -169,7 +169,7 @@
             <h5 class="mb-3" style="font-family: 'Anton', sans-serif; color: #DC3545;"><img src="public/img/logo_fitsport.png" alt="Logo" width="30" height="24"
                  class="d-inline-block align-text-top"> FITSPORT</h5>
         </a>
-                    <p>Votre club de sport préféré pour rester en forme et en bonne santé.</p>
+                    <p>Votre club de sport préféré pour rester en bonne santé.</p>
                     <div>
                         <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
                         <a href="#
