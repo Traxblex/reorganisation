@@ -1,4 +1,5 @@
 <?php include('../layout/header.php'); ?>
+<title>Fitsport - Activités</title>
 <div class="container mt-5 pt-5">
     <h1 class="mb-4">Nos activités</h1>
     <ul>

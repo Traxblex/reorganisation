@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.php">
-            <img src="public/img/logo_fitsport.png" alt="Logo" width="30" height="24"
+            <img src="src/assets/img/logo_fitsport.png" alt="Logo" width="30" height="24"
                  class="d-inline-block align-text-top"> FITSPORT
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -48,7 +48,7 @@
         </div>
     </div>
 </nav>
-<section class="container-fluid" style="background-image: url('public/img/fitness_image.png'); background-size: cover; background-position: center; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0;">
+<section class="container-fluid" style="background-image: url('src/assets/img/fitness_image.png'); background-size: cover; background-position: center; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0;">
     <div style="z-index: 10;">
         <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); font-family: 'Anton', sans-serif; font-size: 7rem;">
             Bienvenue chez Fitsport
@@ -60,7 +60,7 @@
 
         <div class="row g-4" style="margin-top: 100px;">
             <div class="col-md-4">
-                <div class="promo-card" style="background-image: url('public/img/musculation.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/musculation.png');">
                     <div class="promo-content">
                         <p class="promo-title">4 SEMAINES + FRAIS D'ADHÉSION</p>
                         <p class="promo-highlight" style="color: #DC3545;">OFFERTS</p>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="promo-card" style="background-image: url('public/img/sport.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/sport.png');">
                         <a href="src/views/abonnements/abonnements.php" class="text-decoration-none">
                         <div class="promo-content">
                             <p class="promo-title" style="color: #ffffffff;">-30% SUR LES ABONNEMENTS</p>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="promo-card" style="background-image: url('public/img/coach.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/coach.png');">
                     <div class="promo-content">
                         <p class="promo-title">PREMIÈRE SÉANCE</p>
                         <p class="promo-highlight" style="color: #DC3545;">GRATUITE</p>
@@ -100,7 +100,7 @@
         </p>
         <div class="promo-scroll-container">
             <div class="promo-card-wrapper">
-                <div class="promo-card" style="background-image: url('public/img/musculation.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/musculation.png');">
                     <div class="promo-content">
                         <p class="promo-title">accès illimité</p>
                         <p class="promo-highlight" style="color: #DC3545;">MUSCULATION</p>
@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="promo-card-wrapper">
-                <div class="promo-card" style="background-image: url('public/img/yoga.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/yoga.png');">
                     <div class="promo-content">
                         <p class="promo-title">accès illimité</p>
                         <p class="promo-highlight" style="color: #DC3545;">YOGA</p>
@@ -124,7 +124,7 @@
                 </div>
             </div>
             <div class="promo-card-wrapper">
-                <div class="promo-card" style="background-image: url('public/img/boxe.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/boxe.png');">
                     <div class="promo-content">
                         <p class="promo-title">Lundi , Mardi & Vendredi</p>
                         <p class="promo-highlight" style="color: #DC3545;">BOXE</p>
@@ -136,7 +136,7 @@
                 </div>
             </div>
             <div class="promo-card-wrapper">
-                <div class="promo-card" style="background-image: url('public/img/lute.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/lute.png');">
                     <div class="promo-content">
                         <p class="promo-title">Mercredi, Jeudi & Samedi</p>
                         <p class="promo-highlight" style="color: #DC3545;">LUTE</p>
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="promo-card-wrapper">
-                <div class="promo-card" style="background-image: url('public/img/mma.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/mma.png');">
                     <div class="promo-content">
                         <p class="promo-title">Lundi, Mardi & Vendredi</p>
                         <p class="promo-highlight" style="color: #DC3545;">MMA</p>
@@ -162,28 +162,30 @@
         </div>
     </div>
 </section>
-    <footer class="bg-dark text-white py-5 mt-5">
+        <footer class="bg-dark text-white py-5 mt-5">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4 mb-4"> <a class="navbar-brand" href="index.php">
-            <h5 class="mb-3" style="font-family: 'Anton', sans-serif; color: #DC3545;"><img src="public/img/logo_fitsport.png" alt="Logo" width="30" height="24"
+                <div class="col-md-4 mb-4"> 
+                <a class="navbar-brand" href="../../../index.php">
+            <h5 class="mb-3" style="font-family: 'Anton', sans-serif; color: #DC3545;"><img src="src/assets/img/logo_fitsport.png" alt="Logo" width="30" height="24"
                  class="d-inline-block align-text-top"> FITSPORT</h5>
+
         </a>
                     <p>Votre club de sport préféré pour rester en bonne santé.</p>
                     <div>
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
-                        <a href="#
-                        " class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-github"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <h5 class="mb-3" style="font-family: 'Oswald', sans-serif;">LIENS RAPIDES</h5>
                     <ul class="list-unstyled">
-                        <li><a href="/public/index.php" class="text-white text-decoration-none">Accueil</a></li>
-                        <li><a href="/public/index.php?controller=abonnement&action=index" class="text-white text-decoration-none">Abonnements</a></li>
-                        <li><a href="/public/index.php?controller=activite&action=index" class="text-white text-decoration-none">Activités</a></li>
-                        <li><a href="/public/index.php?controller=communication&action=contact" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="index.php" class="text-white text-decoration-none">Accueil</a></li>
+                        <li><a href="src/views/abonnements/abonnements.php" class="text-white text-decoration-none">Abonnements</a></li>
+                        <li><a href="src/views/activites/index.php" class="text-white text-decoration-none">Activités</a></li>
+                        <li><a href="src/views/contact.php" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="src/views/apropos.php" class="text-white text-decoration-none">À propos</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
