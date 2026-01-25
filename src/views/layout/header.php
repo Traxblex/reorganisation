@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="../../../index.php">
@@ -47,5 +47,5 @@
         </div>
     </div>
 </nav>
-
+<main class="flex-grow-1">
 
