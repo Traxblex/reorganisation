@@ -1,47 +1,116 @@
-<?php include '../layout/header.php'; ?>
-<title>Fitsport - Connexion</title>
-<link href="../frontend/login/css/sb-admin-2.min.css" rel="stylesheet">
+<?php include('../layout/header.php'); ?>
+        <title>Réinitialisation du mot de passe - FitSport</title>
+        <link href="../../assets/oublier.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<?php
+require_once('bdd.php');
+session_start();
 
-<div class="container" style="margin-top: 100px;">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-2">Mot de passe oublié</h1>
-                                </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="resetEmail" aria-describedby="emailHelp"
-                                               placeholder="Entrez votre adresse email ...">
+$message = "";
+
+if (isset($_POST['envoyer'])) {
+
+    // Vérification email
+    if (empty($_POST['mail']) || !filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+        $message = "Veuillez saisir une adresse e-mail valide.";
+    } else {
+
+        $adresse = trim($_POST['mail']);
+
+        // Vérifier si l'email existe
+        $requete = $bddPDO->prepare(
+            "SELECT id_utilisateurs, email_utilisateurs, validation_mail 
+             FROM utilisateurs 
+             WHERE email_utilisateurs = :mail"
+        );
+        $requete->execute(['mail' => $adresse]);
+        $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
+
+        if (!$utilisateur) {
+
+            $message = "Adresse e-mail non trouvée.";
+
+        } elseif ($utilisateur['validation_mail'] != 1) {
+
+            $message = "Veuillez valider votre adresse e-mail avant de réinitialiser le mot de passe.";
+            $_SESSION['email_utilisateurs'] = $utilisateur['email_utilisateurs'];
+
+        } else {
+
+            // Génération du token
+            $token = bin2hex(random_bytes(32));
+            
+            // Date d'expiration (1 heure)
+            $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+            // Mise à jour du token ET de l'expiration
+            $update = $bddPDO->prepare(
+                "UPDATE utilisateurs 
+                 SET token_utilisateurs = :token,
+                     reset_expires_at = :expires
+                 WHERE id_utilisateurs = :id"
+            );
+            $update->execute([
+                'token'   => $token,
+                'expires' => $expires,
+                'id'      => $utilisateur['id_utilisateurs']
+            ]);
+
+            // Envoi du mail (sendmail qui marche chez toi)
+            require_once 'sendmail2.php';
+
+            $message = "Un lien de réinitialisation a été envoyé sur votre adresse e-mail.";
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Register - FitSport</title>
+        <link href="../../assets/oublier.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Mots de passe oublier ?</h3></div>
+                                    <div class="card-body">
+                                        <form method="post">
+                                            
+                                            </div>
+                                            <p>saisisser votre adresse email afin  que nous vous envoyons un mails de verrification </p>
+                                             <?php if (!empty($message)) : ?>
+                                             <p><?= htmlspecialchars($message) ?></p>
+                                             <?php endif; ?>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="inputEmail" name="mail" type="email" placeholder="name@example.com" />
+                                                <label for="inputEmail">adresse email</label>
+                                            </div>
+                                            
+                                            <div class="mt-4 mb-0">
+                                                <input name="envoyer" type="submit" ></input>
+                                     
+                                                <div class="small"><a href="index.php">pas de compte ? inscrit toi !</a></div>
+                                                <div class="small"><a href="login.php">tu as deja un compte? connecte toi !</a></div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <a href="/public/index.php?controller=auth&action=login" class="btn btn-primary btn-user btn-block">
-                                        Réinitialiser le mot de passe
-                                    </a>
-                                </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="index.php?controller=auth&action=inscription">
-                                        Créer un compte
-                                    </a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="index.php?controller=auth&action=login">
-                                        Vous avez déjà un compte ? Connectez-vous !
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </main>
             </div>
-        </div>
-    </div>
-</div>
-
-
+            <div id="layoutAuthentication_footer">
+                <?php include('../layout/footer.php'); ?>
