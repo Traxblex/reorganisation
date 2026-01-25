@@ -29,7 +29,7 @@
   </div>
   <div class="col">
     <div class="card h-100">
-      <img src="../../assets/img/" class="card-img-top" alt="...">
+      <img src="../../assets/img/sport.png" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title" style="color: #DC3545">ULTIMATE</h5>
         <p class="card-text">Donne accès plusieurs discipline (jusque à 4 activités) plus l'accès illimité à la salle de sport.</p>
