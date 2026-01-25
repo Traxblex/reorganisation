@@ -34,7 +34,7 @@
             <hr class="bg-secondary">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">&copy; 2024 FITSPORT. Tous droits réservés.</p>
+                    <p class="mb-0">&copy; 2025 FITSPORT. Tous droits réservés.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <a href="#" class="text-white text-decoration-none me-3">Politique de confidentialité</a>

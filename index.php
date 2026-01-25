@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="public/img/logo_fitsport.png" type="image/x-icon">
+    <link rel="shortcut icon" href="src/assets/img/logo_fitsport.png" type="image/x-icon">
     <title>Fitsport</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -39,7 +39,10 @@
                     <a class="nav-link" href="src/views/apropos.php">À PROPOS</a>
                 </li>
                  <li class="nav-item ms-auto"> <!-- Utilisation de ms-auto pour pousser l'élément vers la droite -->
-                    <a class="nav-link" href="#">LISTE D'INSCRITS</a>
+                    <a class="nav-link" href="src/views/private/liste_inscrits.php">LISTE D'INSCRITS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="src/views/private/statistique.php">STATISTIQUES</a>
                 </li>
                 <li class="nav-item "> 
                     <a class="nav-link" href="src/views/auth/login.php"><i class="bi bi-person-circle "> CONNEXION</i></a>
@@ -198,7 +201,7 @@
             <hr class="bg-secondary">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0">&copy; 2024 FITSPORT. Tous droits réservés.</p>
+                    <p class="mb-0">&copy; 2025 FITSPORT. Tous droits réservés.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <a href="#" class="text-white text-decoration-none me-3">Politique de confidentialité</a>

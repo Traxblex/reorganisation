@@ -88,12 +88,6 @@ if (isset($_POST['envoyer'])) {
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php endif; ?>
-
-                                <div class="alert alert-info rounded-3 mb-4" role="alert">
-                                    <i class="fas fa-info-circle me-2"></i>
-                                    <strong>Saisis ton adresse email</strong> afin que nous te envoyions un lien de réinitialisation.
-                                </div>
-
                                 <form id="forgotForm" method="POST" novalidate>
                                     <div class="mb-4">
                                         <label for="inputEmail" class="form-label fw-500">Adresse email</label>
@@ -124,23 +118,12 @@ if (isset($_POST['envoyer'])) {
                             </div>
                             <div class="card-footer bg-light border-top py-3 rounded-bottom-4">
                                 <p class="text-center mb-2">
-                                    <a href="login.php" class="btn btn-link btn-sm fw-bold p-0">Retour à la connexion</a>
+                                    <a href="login.php" class="btn btn-link btn-sm fw-bold p-0 text-decoration-none text-danger">Retour à la connexion</a>
                                 </p>
                                 <p class="text-center mb-0">
                                     Pas de compte ? 
-                                    <a href="inscription.php" class="btn btn-link btn-sm fw-bold p-0">Inscris-toi !</a>
+                                    <a href="inscription.php" class="btn btn-link btn-sm fw-bold p-0 text-decoration-none text-danger">Inscris-toi !</a>
                                 </p>
-                            </div>
-                        </div>
-
-                        <!-- Info de sécurité -->
-                        <div class="alert alert-warning mt-4 rounded-3" role="alert">
-                            <div class="d-flex align-items-start">
-                                <i class="fas fa-shield-alt me-3 mt-1 text-warning"></i>
-                                <div>
-                                    <h6 class="alert-heading">Sécurité du lien</h6>
-                                    <small>Le lien de réinitialisation expire après 1 heure pour des raisons de sécurité. Si tu ne reçois pas l'email, vérifie tes spams.</small>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -149,7 +132,6 @@ if (isset($_POST['envoyer'])) {
         </main>
 
         <script>
-            // Validation Bootstrap
             (function() {
                 'use strict';
                 window.addEventListener('load', function() {
