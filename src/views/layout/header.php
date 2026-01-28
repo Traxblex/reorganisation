@@ -38,7 +38,7 @@
                     <a class="nav-link" href="../communication/apropos.php">À PROPOS</a>
                 </li>
                  <li class="nav-item ms-auto"> <!-- Utilisation de ms-auto pour pousser l'élément vers la droite -->
-                    <a class="nav-link" href="../private/list_inscrits.php">LISTE D'INSCRITS</a>
+                    <a class="nav-link" href="../private/liste_inscrits.php">LISTE D'INSCRITS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../private/statistique.php">STATISTIQUES</a>

@@ -18,7 +18,6 @@ try {
     $inscrits_count = 0;
     $abonnements_count = 0;
     $activites_count = 0;
-    $error = "Erreur lors du chargement des statistiques.";
 }
 
 ?>
@@ -35,24 +34,16 @@ try {
                         <p class="text-muted">Aperçu global de FitSport</p>
                     </div>
                     <div class="col-md-4 text-end">
-                        <a href="../" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        <a href="../../../index.php" class="btn btn-secondary">
+                            <i class="bi bi-box-arrow-left me-2"></i>Retour
                         </a>
                     </div>
                 </div>
 
-                <?php if (isset($error)) : ?>
-                    <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        <?php echo htmlspecialchars($error); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
-
                 <!-- Cartes statistiques principales -->
                 <div class="row g-4 mb-5">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden">
+                        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden"> // overflow-hidden pour éviter que l'icône dépasse
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h6 class="card-title fw-bold mb-0">Utilisateurs actifs</h6>
@@ -122,7 +113,7 @@ try {
                                         <?php 
                                         try {
                                             $pending = $bddPDO->query("SELECT COUNT(*) as count FROM utilisateurs WHERE validation_mail = 0")->fetch(PDO::FETCH_ASSOC)['count'];
-                                            echo $pending;
+                                            echo $pending; // Afficher le nombre d'utilisateurs en attente de validation. fetch veut dire "récupérer"
                                         } catch (Exception $e) {
                                             echo "0";
                                         }
@@ -143,7 +134,7 @@ try {
                             <div class="card-body p-4">
                                 <p class="mb-3">
                                     <strong>Platform FitSport</strong><br>
-                                    <small class="text-muted">Gestion complète de votre centre de fitness</small>
+                                    <small class="text-muted">Gestion complète de votre club fitness</small>
                                 </p>
                                 <p class="mb-0">
                                     <strong>Dernière mise à jour :</strong><br>
@@ -155,22 +146,5 @@ try {
                 </div>
             </div>
         </main>
-
-        <style>
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-            .card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-            }
-            .opacity-50 {
-                opacity: 0.5;
-            }
-        </style>
-
         <div id="layoutAuthentication_footer">
             <?php include('../layout/footer.php'); ?>

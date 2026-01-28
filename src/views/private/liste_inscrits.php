@@ -8,7 +8,6 @@ if (!isset($_SESSION['identifiant'])) {
     header("Location: ../auth/login.php");
     exit();
 }
-
 // Récupérer la liste des inscrits depuis la table utilisateurs
 $sql = "SELECT 
     id_utilisateurs,
@@ -45,11 +44,8 @@ $totalInscrits = count($utilisateurs);
                         </p>
                     </div>
                     <div class="col-md-4 text-end">
-                        <a href="javascript:window.print()" class="btn btn-outline-secondary">
-                            <i class="fas fa-print me-2"></i>Imprimer
-                        </a>
-                        <a href="../" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        <a href="../../../index.php" class="btn btn-secondary">
+                            <i class="bi bi-box-arrow-left me-2"></i>Retour
                         </a>
                     </div>
                 </div>

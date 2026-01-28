@@ -33,10 +33,10 @@
                     <a class="nav-link" href="src/views/activites/index.php">ACTIVITÉS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="src/views/contact.php">CONTACT</a>
+                    <a class="nav-link" href="src/views/communication/contact.php">CONTACT</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="src/views/apropos.php">À PROPOS</a>
+                    <a class="nav-link" href="src/views/communication/apropos.php">À PROPOS</a>
                 </li>
                  <li class="nav-item ms-auto"> <!-- Utilisation de ms-auto pour pousser l'élément vers la droite -->
                     <a class="nav-link" href="src/views/private/liste_inscrits.php">LISTE D'INSCRITS</a>

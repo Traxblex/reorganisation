@@ -47,12 +47,12 @@ if (isset($_POST['envoyer'])){
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-light"> <!-- c'est ici que je veux commencer le main bg light est pour le fond gris clair -->
-        <main class="d-flex align-items-center justify-content-center min-vh-100 py-4">
+        <main class="d-flex align-items-center justify-content-center min-vh-100 py-4" style="background-color: #dee0e0cc;">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+                <div class="row justify-content-center"> <!-- centrer la carte horizontalement -->
+                    <div class="col-12 col-sm-10 col-md-8 col-lg-5"> <!-- ajustement de la taille de la carte en fonction de la taille de l'écran -->
                         <div class="card shadow-lg border-0 rounded-4">
-                            <div class="card-header bg-danger text-white text-center py-4 rounded-top-4">
+                            <div class="card-header bg-danger text-white text-center py-4 rounded-top-4"> <!-- header de la carte -->
                                 <h2 class="mb-0 fw-bold">Se connecter</h2>
                                 <p class="text-white-50 small mb-0 mt-2">Bienvenue sur FitSport</p>
                             </div>
