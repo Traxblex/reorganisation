@@ -1,9 +1,24 @@
-<?php include '../layout/header.php'; ?>
-<title>Fitsport - Abonnement ULTIMATE</title>
 
+<title>Fitsport - Abonnement ULTIMATE</title>
+<?php 
+include '../layout/header.php'; 
+require_once('../auth/bdd.php');
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['adresse'])) {
+    $adresse = $_POST['adresse'];
+    $abonnement = 'utltimate';
+    
+    $requete = $bddPDO->prepare('UPDATE utilisateurs SET activité = :abonnement WHERE email_utilisateurs = :email');
+    $requete->bindValue(':email', $adresse, PDO::PARAM_STR);
+    $requete->bindValue(':abonnement', $abonnement, PDO::PARAM_STR);
+    $requete->execute();
+    $message = 'Votre abonnement ultimate a été pris en compte. Merci !';
+}
+?>
 <body>
     <div class="container mt-5 pt-5">
-        <h1 class="mb-4" style="font-family: 'Anton', sans-serif; font-size: 3rem; color: #DC3545;">ABONNEMENT ULTIMATE</h1>
+        <h1 class="mb-4" style="font-family: 'Anton', sans-serif; font-size: 3rem; color: #DC3545;">ABONNEMENT ULTIMATE <?php if(isset($message)){echo $message; }?></h1>
 
         <div class="row">
             <div class="col-md-6">
@@ -26,23 +41,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-4">Complétez votre inscription</h5>
-                        <form method="POST" action="../../controllers/AbonnementController.php">
-                            <div class="mb-3">
-                                <label for="nom" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="nom" name="nom" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="prenom" class="form-label">Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" required>
-                            </div>
+                        <form method="POST">
+                            
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="adresse" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="tel" class="form-control" id="telephone" name="telephone" required>
-                            </div>
+                            
                             <input type="hidden" name="abonnement" value="ultimate">
                             <button type="submit" class="btn btn-danger w-100">S'abonner maintenant</button>
                         </form>

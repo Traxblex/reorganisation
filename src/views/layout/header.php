@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +13,25 @@
     <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-white">
+<?php 
+require_once '../auth/bdd.php';
+session_start();
+// Vérifier si l'utilisateur est connecté et récupérer son statut
+$isAdmin = false;
+
+if (isset($_SESSION['identifiant'])) {
+    $requete = $bddPDO->prepare("SELECT role_utilisateurs FROM utilisateurs WHERE id_utilisateurs = :id");
+    $requete->bindValue(':id', $_SESSION['identifiant']);
+    $requete->execute();
+    $user = $requete->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user && $user['role_utilisateurs'] === 'admin') {
+        $isAdmin = true;
+    }
+}
+?>
+
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="../../../index.php">
@@ -23,8 +42,9 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav w-100"> <!-- Utilisation de w-100 pour étendre la barre de navigation sur toute la largeur -->
+            <ul class="navbar-nav w-100">
                 <li class="nav-item">
                     <a class="nav-link" href="../abonnements/abonnements.php">ABONNEMENTS</a>
                 </li>
@@ -37,18 +57,35 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../communication/apropos.php">À PROPOS</a>
                 </li>
-                 <li class="nav-item ms-auto"> <!-- Utilisation de ms-auto pour pousser l'élément vers la droite -->
-                    <a class="nav-link" href="../private/liste_inscrits.php">LISTE D'INSCRITS</a>
-                </li>
+                
+                <?php if ($isAdmin): ?>
+                    <!-- Menu admin uniquement -->
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link" href="../private/liste_inscrits.php">LISTE D'INSCRITS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../private/statistique.php">STATISTIQUES</a>
+                    </li>
+                <?php else: ?>
+                    <!-- Espace vide pour pousser connexion à droite -->
+                    <li class="nav-item ms-auto"></li>
+                <?php endif; ?>
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="../private/statistique.php">STATISTIQUES</a>
-                </li>
-                <li class="nav-item "> 
-                    <a class="nav-link" href="../auth/login.php"><i class="bi bi-person-circle "> CONNEXION</i></a>
+                    <?php if (isset($_SESSION['identifiant'])): ?>
+                        <a class="nav-link" href="../auth/logout.php">
+                            <i class="bi bi-box-arrow-right"> DÉCONNEXION</i>
+                        </a>
+                    <?php else: ?>
+                        <a class="nav-link" href="../auth/login.php">
+                            <i class="bi bi-person-circle"> CONNEXION</i>
+                        </a>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<main class="flex-grow-1">
 
+<main class="flex-grow-1 bg-white" style="padding-top: 70px;">
+    <!-- Ton contenu ici -->

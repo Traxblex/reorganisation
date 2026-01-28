@@ -1,4 +1,80 @@
 <?php include('../layout/header.php'); ?>
+<?php include('bdd.php'); ?>
+<?php include('../layout/header.php'); ?>
+        <title>Inscription - FitSport</title>
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-light">
+        <main class="d-flex align-items-center justify-content-center min-vh-100 py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                        <div class="card shadow-lg border-0 rounded-4">
+                            <div class="card-header bg-danger text-white text-center py-4 rounded-top-4">
+                                <h2 class="mb-0 fw-bold">Créer un compte</h2>
+                                 <?php
+  if(isset($_POST['envoyer'])){
+    $identifiant = $_POST['identifiant'];
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $adresse = $_POST['mail'];
+    $password = $_POST['password'];
+    if (!empty($nom) && !empty($adresse) && !empty($prenom) && !empty($password) && !empty($identifiant)) {
+      $req = $bddPDO->prepare('SELECT * FROM sport.utilisateurs WHERE email_utilisateurs = :adresse');
+      $req->bindValue(":adresse" , $_POST['mail']);
+      $req->execute();
+      $result = $req->fetch();
+    
+
+      $req1 = $bddPDO->prepare('SELECT * FROM sport.utilisateurs WHERE id_utilisateurs = :identifiant');
+      $req1->bindValue(":identifiant" , $_POST['identifiant']);
+      $req1->execute();
+      $result1 = $req1->fetch();
+      if ($result) {
+        $message ="cet adresse email existe deja";
+        
+      }elseif ($result1) {
+        $message ="cet identifiant existe deja";
+      
+      }else{
+
+      require_once('token.php');
+      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+
+
+      $requete = $bddPDO->prepare('INSERT INTO utilisateurs (identifiant , nom_utilisateurs , prenom_utilisateurs , email_utilisateurs, password_utilisateurs , id_utilisateurs, token_utilisateurs ) VALUES( :identifiant , :nom , :prenom , :adresse , :password , :identifiant , :token)');
+      $requete->bindValue(':identifiant' , $identifiant);
+      $requete->bindValue(':nom' , $nom);
+      $requete->bindValue(':prenom' , $prenom);
+      $requete->bindValue(':adresse' , $adresse);
+      $requete->bindValue(':password' , $password);
+      $requete->bindValue(':token' , $token);
+
+
+      $result = $requete->execute();
+      $emailDestinataire = $adresse; 
+      
+    
+      require_once('sendmail.php'); 
+    } 
+
+
+
+
+      
+    }
+  
+  }
+
+
+ 
+
+  
+
+
+
+  ?>
         <title>Inscription - FitSport</title>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>

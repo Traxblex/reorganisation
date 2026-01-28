@@ -2,58 +2,50 @@
 include('../layout/header.php');
 require_once ('bdd.php');
 
-$message = '';
-$messageType = '';
-
-if (isset($_POST['envoyer'])){
+$isLogged = isset($_SESSION['identifiant']) && !empty($_SESSION['identifiant']);
+ if (isset($_POST['envoyer'])){
     $adresse = $_POST['mail'];
     $password = $_POST['password'];
 
     $requete = $bddPDO->prepare('SELECT * FROM sport.utilisateurs WHERE email_utilisateurs =:email');
     $requete->execute(array('email'=>$adresse));
-
     $result = $requete->fetch();
 
     if (!$result) {
-        $message = "Veuillez saisir une adresse email valide";
-        $messageType = "warning";
-    }
+          $message = "veuillez saisir une adresse email valide";}
     elseif ($result['validation_mail'] == 0) {
-        require_once "token.php";
-        $update = $bddPDO->prepare('UPDATE sport.utilisateurs SET token_utilisateurs =:token WHERE email_utilisateurs =:adresse');
-        $update->bindValue(':adresse',$_POST['mail']);
-        $update->bindValue(':token',$token);
-        $update->execute();
-        require_once "sendmail.php";
-        $message = "Veuillez confirmer votre email avant de vous connecter";
-        $messageType = "info";
+      require_once "token.php";
+      $update = $bddPDO->prepare('UPDATE sport.utilisateurs SET token_utilisateurs =:token WHERE email_utilisateurs =:adresse');
+      $update->bindValue(':adresse',$_POST['mail']);
+      $update->bindValue(':token',$token);
+      $update->execute();
+      require_once "sendmail.php";
+    }else{
+      $passwordISOK = password_verify($_POST['password'], $result['password_utilisateurs']);
+      if ($passwordISOK) {
+        session_start();
+        $_SESSION['prenom_utlisateurs'] = $result['prenom_utlisateurs'];
+        $_SESSION['identifiant'] = $result['id_utilisateurs'];
+        $_SESSION['email_utilisateurs'] = $adresse;
+        header('location:../../../index.php');
+    } else{
+      $message = "veuillez saisir un mots de passe valide!";
+    
     }
-    else{
-        $passwordISOK = password_verify($_POST['password'], $result['password_utilisateurs']);
-        if ($passwordISOK) {
-            session_start();
-            $_SESSION['prenom_utlisateurs'] = $result['prenom_utlisateurs'];
-            $_SESSION['identifiant'] = $result['id_utilisateurs'];
-            $_SESSION['email_utilisateurs'] = $adresse;
-            header('location:public/index.php');
-        } 
-        else{
-            $message = "Veuillez saisir un mot de passe valide !";
-            $messageType = "danger";
-        }
-    }
-}
+    }                           
+  }
+
 ?>
         <title>Connexion - FitSport</title>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-light"> <!-- c'est ici que je veux commencer le main bg light est pour le fond gris clair -->
-        <main class="d-flex align-items-center justify-content-center min-vh-100 py-4" style="background-color: #dee0e0cc;">
+        <main class="d-flex align-items-center justify-content-center min-vh-100 py-4">
             <div class="container">
-                <div class="row justify-content-center"> <!-- centrer la carte horizontalement -->
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-5"> <!-- ajustement de la taille de la carte en fonction de la taille de l'écran -->
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-10 col-md-8 col-lg-5">
                         <div class="card shadow-lg border-0 rounded-4">
-                            <div class="card-header bg-danger text-white text-center py-4 rounded-top-4"> <!-- header de la carte -->
+                            <div class="card-header bg-danger text-white text-center py-4 rounded-top-4">
                                 <h2 class="mb-0 fw-bold">Se connecter</h2>
                                 <p class="text-white-50 small mb-0 mt-2">Bienvenue sur FitSport</p>
                             </div>
@@ -65,6 +57,13 @@ if (isset($_POST['envoyer'])){
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php endif; ?>
+                                 <?php if ($isLogged): ?>
+                                    <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+                                        <i class="fas fa-check-circle me-2"></i>
+                                        Vous êtes déjà connecté.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                <?php else: ?>
 
                                 <form id="loginForm" method="POST" novalidate>
                                     <div class="mb-3">
@@ -142,23 +141,24 @@ if (isset($_POST['envoyer'])){
             </div>
         </main>
 
-        <script>
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    const forms = document.querySelectorAll('#loginForm');
-                    Array.prototype.slice.call(forms).forEach(function(form) {
-                        form.addEventListener('submit', function(event) {
-                            if (!form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
+       <script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            const form = document.getElementById('loginForm');
+            
+            form.addEventListener('submit', function(event) {
+                // Si le formulaire est INVALIDE, on bloque l'envoi
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                form.classList.add('was-validated');
+            }, false);
+        }, false);
+    })();
+</script>
 
         <style>
             body {
@@ -190,6 +190,9 @@ if (isset($_POST['envoyer'])){
                 box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
             }
         </style>
+        <?php endif; ?>
+       
 
         <div id="layoutAuthentication_footer">
+          
             <?php include('../layout/footer.php'); ?>

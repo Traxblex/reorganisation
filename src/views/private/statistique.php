@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include('../layout/header.php');
 require_once('../auth/bdd.php');
 
