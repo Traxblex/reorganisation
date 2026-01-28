@@ -7,7 +7,7 @@ require_once('../auth/bdd.php');
 if (!isset($_SESSION['identifiant'])) {
     header("Location: ../auth/login.php");
     exit();
-}
+}    
 
 // Récupérer les statistiques depuis la base de données
 try {
@@ -43,7 +43,7 @@ try {
                 <!-- Cartes statistiques principales -->
                 <div class="row g-4 mb-5">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden"> // overflow-hidden pour éviter que l'icône dépasse
+                        <div class="card border-0 rounded-4 shadow-sm h-100 overflow-hidden"> <!-- overflow-hidden pour éviter que l'icône dépasse -->
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h6 class="card-title fw-bold mb-0">Utilisateurs actifs</h6>

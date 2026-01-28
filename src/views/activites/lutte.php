@@ -5,11 +5,11 @@ include('../auth/bdd.php');
 $errors = [];
 $success = '';
 
-// Définir des créneaux de MMA (exemples)
+// Définir des créneaux de lutte (exemples)
 $sessions = [
 	['id' => 1, 'label' => 'Mardi 18:00 - 19:00'],
-	['id' => 2, 'label' => 'Jeudi 19:00 - 20:00'],
-	['id' => 3, 'label' => 'Vendredi 20:30 - 21:30'],
+	['id' => 2, 'label' => 'Mercredi 21:00 - 22:00'],
+	['id' => 3, 'label' => 'Samedi 18:30 - 19:30'],
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (empty($errors)) {
 		try {
 			// Créer la table si elle n'existe pas
-			$create = "CREATE TABLE IF NOT EXISTS inscriptions_mma (
+			$create = "CREATE TABLE IF NOT EXISTS inscriptions_lutte (
 				id INT PRIMARY KEY AUTO_INCREMENT,
 				prenom VARCHAR(100) NOT NULL,
 				nom VARCHAR(100) NOT NULL,
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				if ($s['id'] === $session_id) { $session_label = $s['label']; break; }
 			}
 
-			$stmt = $bddPDO->prepare('INSERT INTO inscriptions_mma (prenom, nom, email, session_id, session_label) VALUES (:prenom, :nom, :email, :session_id, :session_label)');
+			$stmt = $bddPDO->prepare('INSERT INTO inscriptions_lutte (prenom, nom, email, session_id, session_label) VALUES (:prenom, :nom, :email, :session_id, :session_label)');
 			$stmt->execute([
 				':prenom' => $prenom,
 				':nom' => $nom,
@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<title>Fitsport - MMA</title>
+<title>Fitsport - Lutte</title>
 <main class="container mt-5 pt-5">
 	<div class="row">
 		<div class="col-md-8">
-			<h1 class="mb-4">Séances de MMA</h1>
+			<h1 class="mb-4">Séances de Lutte</h1>
 
 			<?php if (!empty($errors)): ?>
 				<div class="alert alert-danger" role="alert">
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<div class="list-group-item d-flex justify-content-between align-items-center">
 						<div>
 							<strong><?php echo htmlspecialchars($s['label']); ?></strong>
-							<div class="text-muted">Durée: 1h — Coach: Shapeche</div>
+							<div class="text-muted">Durée: 1h — Coach: Mamadou</div>
 						</div>
 						<span class="badge bg-primary rounded-pill">Places illimitées</span>
 					</div>

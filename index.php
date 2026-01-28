@@ -139,10 +139,10 @@
                 </div>
             </div>
             <div class="promo-card-wrapper">
-                <div class="promo-card" style="background-image: url('src/assets/img/lute.png');">
+                <div class="promo-card" style="background-image: url('src/assets/img/lutte.png');">
                     <div class="promo-content">
                         <p class="promo-title">Mercredi, Jeudi & Samedi</p>
-                        <p class="promo-highlight" style="color: #DC3545;">LUTE</p>
+                        <p class="promo-highlight" style="color: #DC3545;">LUTTE</p>
                         <p class="promo-date">
                             Développe ta technique et ta force grâce à nos cours de lutte.
                             Des séances dynamiques pour améliorer ton agilité et ta condition physique.

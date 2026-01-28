@@ -11,6 +11,7 @@ if (isset($_POST['envoyer'])){
 
     $requete = $bddPDO->prepare('SELECT * FROM sport.utilisateurs WHERE email_utilisateurs =:email');
     $requete->execute(array('email'=>$adresse));
+
     $result = $requete->fetch();
 
     if (!$result) {
