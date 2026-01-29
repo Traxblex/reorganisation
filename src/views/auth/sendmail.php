@@ -1,5 +1,5 @@
 
-<?php require_once('index.php'); ?>
+<?php require_once('inscription.php'); ?>
 <?php require_once('token.php'); ?>
 
 
@@ -27,7 +27,7 @@ $mail->addAddress($emailDestinataire ,':prenom');
 $mail->isHTML(true);
 $mail->Subject = 'confirmation de votre email';
 $mail->Body = 'Bonjour, afin de vérifier votre adresse email, merci de cliquer sur le lien suivant : 
-<a href="http://localhost/projet_sport-main/verrification.php?token='.$token.'&mail='.$_POST['mail'].'">Confirmer l\'email</a>';
+<a href="http://localhost/reorganisation/src/views/auth/verrification.php?token='.$token.'&mail='.$_POST['mail'].'">Confirmer l\'email</a>';
 
 $mail->SMTPDebug = 0;
 if(!$mail->send()){

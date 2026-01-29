@@ -146,7 +146,7 @@ if (isset($_POST['password'])) {
                                         </div>
 
                                         <div class="d-grid gap-2 mb-3">
-                                            <button type="submit" class="btn btn-danger btn-lg fw-bold rounded-3">
+                                            <button type="submit" name="envoyer" class="btn btn-danger btn-lg fw-bold rounded-3">
                                                 <i class="fas fa-redo me-2"></i>Réinitialiser le mot de passe
                                             </button>
                                         </div>
@@ -159,39 +159,12 @@ if (isset($_POST['password'])) {
                                 </p>
                             </div>
                         </div>
-                        <?php endif; ?>
+                    
                     </div>
                 </div>
             </div>
         </main>
 
-        <script>
-            // Validation Bootstrap
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    const forms = document.querySelectorAll('#resetForm');
-                    Array.prototype.slice.call(forms).forEach(function(form) {
-                        form.addEventListener('submit', function(event) {
-                            const password = document.getElementById('inputPassword').value;
-                            const confirm = document.getElementById('inputPasswordConfirm').value;
-                            
-                            if (password !== confirm) {
-                                document.getElementById('inputPasswordConfirm').classList.add('is-invalid');
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            
-                            if (!form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
 
         <style>
             body {

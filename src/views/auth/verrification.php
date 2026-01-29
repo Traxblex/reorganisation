@@ -25,7 +25,7 @@ if (isset($_GET['mail']) && !empty($_GET['mail']) && isset($_GET['token']) && !e
 
 			if ($resultUpadate){
 				echo"<script type=\"text/javascript\"> alert('votre adresse email est confirmé!');
-				document.location.href='login.php';
+				document.location.href='../../../index.php';
 				</script>";
 			}else{
             echo"sa ne marche pas";

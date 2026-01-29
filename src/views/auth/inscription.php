@@ -1,4 +1,3 @@
-<?php include('../layout/header.php'); ?>
 <?php include('bdd.php'); ?>
 <?php include('../layout/header.php'); ?>
         <title>Inscription - FitSport</title>
@@ -13,83 +12,69 @@
                             <div class="card-header bg-danger text-white text-center py-4 rounded-top-4">
                                 <h2 class="mb-0 fw-bold">Créer un compte</h2>
                                  <?php
-  if(isset($_POST['envoyer'])){
+if(isset($_POST['envoyer'])){
     $identifiant = $_POST['identifiant'];
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $adresse = $_POST['mail'];
     $password = $_POST['password'];
+    
     if (!empty($nom) && !empty($adresse) && !empty($prenom) && !empty($password) && !empty($identifiant)) {
-      $req = $bddPDO->prepare('SELECT * FROM sport.utilisateurs WHERE email_utilisateurs = :adresse');
-      $req->bindValue(":adresse" , $_POST['mail']);
-      $req->execute();
-      $result = $req->fetch();
-    
-
-      $req1 = $bddPDO->prepare('SELECT * FROM sport.utilisateurs WHERE id_utilisateurs = :identifiant');
-      $req1->bindValue(":identifiant" , $_POST['identifiant']);
-      $req1->execute();
-      $result1 = $req1->fetch();
-      if ($result) {
-        $message ="cet adresse email existe deja";
+        // Vérifier si l'email existe déjà
+        $req = $bddPDO->prepare('SELECT * FROM utilisateurs WHERE email_utilisateurs = :adresse');
+        $req->bindValue(":adresse", $_POST['mail']);
+        $req->execute();
+        $result = $req->fetch();
         
-      }elseif ($result1) {
-        $message ="cet identifiant existe deja";
-      
-      }else{
-
-      require_once('token.php');
-      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-
-
-      $requete = $bddPDO->prepare('INSERT INTO utilisateurs (identifiant , nom_utilisateurs , prenom_utilisateurs , email_utilisateurs, password_utilisateurs , id_utilisateurs, token_utilisateurs ) VALUES( :identifiant , :nom , :prenom , :adresse , :password , :identifiant , :token)');
-      $requete->bindValue(':identifiant' , $identifiant);
-      $requete->bindValue(':nom' , $nom);
-      $requete->bindValue(':prenom' , $prenom);
-      $requete->bindValue(':adresse' , $adresse);
-      $requete->bindValue(':password' , $password);
-      $requete->bindValue(':token' , $token);
-
-
-      $result = $requete->execute();
-      $emailDestinataire = $adresse; 
-      
-    
-      require_once('sendmail.php'); 
-    } 
-
-
-
-
-      
+        // Vérifier si l'identifiant existe déjà (corrigé)
+        $req1 = $bddPDO->prepare('SELECT * FROM utilisateurs WHERE identifiant = :identifiant');
+        $req1->bindValue(":identifiant", $_POST['identifiant']);
+        $req1->execute();
+        $result1 = $req1->fetch();
+        
+        if ($result) {
+            $message = "Cette adresse email existe déjà";
+        } elseif ($result1) {
+            $message = "Cet identifiant existe déjà";
+        } else {
+            require_once('token.php');
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            
+            // INSERT correct maintenant
+            $requete = $bddPDO->prepare('INSERT INTO utilisateurs (identifiant, nom_utilisateurs, prenom_utilisateurs, email_utilisateurs, password_utilisateurs, token_utilisateurs) VALUES(:identifiant, :nom, :prenom, :adresse, :password, :token)');
+            $requete->bindValue(':identifiant', $identifiant);
+            $requete->bindValue(':nom', $nom);
+            $requete->bindValue(':prenom', $prenom);
+            $requete->bindValue(':adresse', $adresse);
+            $requete->bindValue(':password', $password);
+            $requete->bindValue(':token', $token);
+            
+            $result = $requete->execute();
+            $emailDestinataire = $adresse;
+            
+            require_once('sendmail.php');
+        }
     }
-  
-  }
+}
+?>
 
-
- 
-
-  
-
-
-
-  ?>
-        <title>Inscription - FitSport</title>
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="bg-light">
-        <main class="d-flex align-items-center justify-content-center min-vh-100 py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                        <div class="card shadow-lg border-0 rounded-4">
-                            <div class="card-header bg-danger text-white text-center py-4 rounded-top-4">
-                                <h2 class="mb-0 fw-bold">Créer un compte</h2>
-                                <p class="text-white-50 small mb-0 mt-2">Rejoins la communauté FitSport</p>
+                                <p class="text-white-50 small mb-0 mt-2">Rejoins la communauté FitSport
+                                    <?php if (isset($message)) { echo '<div class="alert alert-warning mt-2" role="alert">' . htmlspecialchars($message) . '</div>'; } ?>
+                                </p>
                             </div>
                             <div class="card-body p-4">
-                                <form id="inscriptionForm" method="POST" novalidate>
+                                <form id="inscriptionForm" method="post" novalidate>
+                                    <div class="mb-3">
+                                    <label for="inputIdentifiant" class="form-label fw-500">Identifiant</label>
+                                    <input 
+                                                 type="text" 
+                                                 class="form-control form-control-lg" 
+                                                 id="inputIdentifiant" 
+                                                 name="identifiant"
+                                                 placeholder="Votre identifiant unique" 
+                                                 required 
+    />
+</div>
                                     <div class="row g-3 mb-3">
                                         <div class="col-md-6">
                                             <label for="inputFirstName" class="form-label fw-500">Prénom</label>
@@ -97,7 +82,7 @@
                                                 type="text" 
                                                 class="form-control form-control-lg" 
                                                 id="inputFirstName" 
-                                                name="firstName"
+                                                name="prenom"
                                                 placeholder="Jean" 
                                                 required 
                                             />
@@ -111,7 +96,7 @@
                                                 type="text" 
                                                 class="form-control form-control-lg" 
                                                 id="inputLastName" 
-                                                name="lastName"
+                                                name="nom"
                                                 placeholder="Dupont" 
                                                 required 
                                             />
@@ -127,7 +112,7 @@
                                             type="email" 
                                             class="form-control form-control-lg" 
                                             id="inputEmail" 
-                                            name="email"
+                                            name="mail"
                                             placeholder="vous@example.com" 
                                             required 
                                         />
@@ -189,7 +174,7 @@
                                     </div>
 
                                     <div class="d-grid gap-2 mb-3">
-                                        <button type="submit" class="btn btn-danger btn-lg fw-bold rounded-3">
+                                        <button type="submit" name="envoyer" value="envoyer" class="btn btn-danger btn-lg fw-bold rounded-3">
                                             <i class="fas fa-user-check me-2"></i>Créer un compte
                                         </button>
                                     </div>
@@ -207,32 +192,35 @@
             </div>
         </main>
 
-        <script>
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    const forms = document.querySelectorAll('#inscriptionForm');
-                    Array.prototype.slice.call(forms).forEach(function(form) {
-                        form.addEventListener('submit', function(event) {
-                            const password = document.getElementById('inputPassword').value;
-                            const passwordConfirm = document.getElementById('inputPasswordConfirm').value;
-                            
-                            if (password !== passwordConfirm) {
-                                document.getElementById('inputPasswordConfirm').classList.add('is-invalid');
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            
-                            if (!form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
+       <script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            const form = document.getElementById('inscriptionForm');
+            
+            form.addEventListener('submit', function(event) {
+                const password = document.getElementById('inputPassword').value;
+                const passwordConfirm = document.getElementById('inputPasswordConfirm').value;
+                
+                // Vérifier si les mots de passe correspondent
+                if (password !== passwordConfirm) {
+                    document.getElementById('inputPasswordConfirm').setCustomValidity('Les mots de passe ne correspondent pas');
+                } else {
+                    document.getElementById('inputPasswordConfirm').setCustomValidity('');
+                }
+                
+                // Vérifier la validité du formulaire
+                if (form.checkValidity() === false) {
+                    event.preventDefault(); // ✅ Bloque SEULEMENT si invalide
+                    event.stopPropagation();
+                }
+                
+                form.classList.add('was-validated');
+            }, false);
+        }, false);
+    })();
+</script>
+
 
         <style>
             body {
@@ -264,6 +252,8 @@
 
         <div id="layoutAuthentication_footer">
             <?php include('../layout/footer.php'); ?>
+
+
 
 
 

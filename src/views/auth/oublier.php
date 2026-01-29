@@ -1,7 +1,7 @@
 <?php 
 include('../layout/header.php');
 require_once('bdd.php');
-session_start();
+
 
 $message = "";
 $messageType = "";
@@ -131,23 +131,6 @@ if (isset($_POST['envoyer'])) {
             </div>
         </main>
 
-        <script>
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    const forms = document.querySelectorAll('#forgotForm');
-                    Array.prototype.slice.call(forms).forEach(function(form) {
-                        form.addEventListener('submit', function(event) {
-                            if (!form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-        </script>
 
         <style>
             body {

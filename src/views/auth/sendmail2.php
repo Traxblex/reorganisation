@@ -25,7 +25,7 @@ $mail->addAddress($adresse);
 $mail->isHTML(true);
 $mail->Subject = 'confirmation de reinitialisation de mot de passe';
 $mail->Body = 'Bonjour, afin de pouvoir  reinitialiser votre mot de passe, veuillez cliquer sur le lien suivant : 
-<a href="http://localhost/projet_sport-main/modifier.php?token='.$token.'&mail='.$adresse.'">Confirmration  modification de votre mots de passe </a>';
+<a href="http://localhost/reorganisation/src/views/auth/modifier.php?token='.$token.'&mail='.$adresse.'">Confirmration  modification de votre mots de passe </a>';
 
 $mail->SMTPDebug = 0;
 if(!$mail->send()){
