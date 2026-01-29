@@ -6,6 +6,9 @@ require_once('../auth/bdd.php');
 if (!isset($_SESSION['identifiant'])) {
     header("Location: ../auth/login.php");
     exit();
+}elseif(!$isAdmin){
+    header("Location: ../../../index.php");
+    exit();
 }
 
 // Récupérer la liste des inscrits depuis la table utilisateurs

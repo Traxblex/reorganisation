@@ -7,18 +7,38 @@ require_once('../auth/bdd.php');
 if (!isset($_SESSION['identifiant'])) {
     header("Location: ../auth/login.php");
     exit();
-}    
+}elseif(!$isAdmin){
+    header("Location: ../../../index.php");
+    exit();
+}
 
 // Récupérer les statistiques depuis la base de données
 try {
-    $inscrits_count = $bddPDO->query("SELECT COUNT(*) as count FROM utilisateurs WHERE validation_mail = 1")->fetch(PDO::FETCH_ASSOC)['count'];
-    $abonnements_count = $bddPDO->query("SELECT COUNT(*) as count FROM abonnements")->fetch(PDO::FETCH_ASSOC)['count'];
-    $activites_count = $bddPDO->query("SELECT COUNT(*) as count FROM activites")->fetch(PDO::FETCH_ASSOC)['count'];
-} catch (PDOException $e) {
-    $inscrits_count = 0;
-    $abonnements_count = 0;
-    $activites_count = 0;
+    $stmt = $bddPDO->query("SELECT COUNT(*) FROM utilisateurs WHERE validation_mail = 1");
+    $utilisateurs_valides = (int) $stmt->fetchColumn();
+
+    $stmt = $bddPDO->query("SELECT COUNT(*) FROM utilisateurs WHERE validation_mail = 0");
+    $utilisateurs_en_attente = (int) $stmt->fetchColumn();
+
+    $stmt = $bddPDO->query("SELECT COUNT(*) FROM utilisateurs WHERE activité IS NOT NULL AND activité != ''");
+    $abonnements_actifs = (int) $stmt->fetchColumn();
+
+    // Compter les fichiers d'activités (exclure index.php)
+    $activities_dir = __DIR__ . '/../activites';
+    $activities_available = 0;
+    if (is_dir($activities_dir)) {
+        $files = array_diff(scandir($activities_dir), array('.', '..'));
+        foreach ($files as $f) {
+            if (is_file($activities_dir . '/' . $f) && pathinfo($f, PATHINFO_EXTENSION) === 'php' && strtolower($f) !== 'index.php') {
+                $activities_available++;
+            }
+        }
+    }
+} catch (Exception $e) {
+    $utilisateurs_valides = $utilisateurs_en_attente = $abonnements_actifs = $activities_available = 0;
 }
+
+
 
 ?>
         <title>Statistiques - FitSport</title>
@@ -49,7 +69,7 @@ try {
                                     <h6 class="card-title fw-bold mb-0">Utilisateurs actifs</h6>
                                     <i class="fas fa-users fa-2x text-primary opacity-50"></i>
                                 </div>
-                                <h3 class="fw-bold mb-0"><?php echo $inscrits_count; ?></h3>
+                                <h3 class="fw-bold mb-0"><?php echo htmlspecialchars($utilisateurs_valides); ?></h3>
                                 <small class="text-muted">Inscrits validés</small>
                                 <div class="progress mt-3" style="height: 4px;">
                                     <div class="progress-bar bg-primary" style="width: 75%"></div>
@@ -65,7 +85,7 @@ try {
                                     <h6 class="card-title fw-bold mb-0">Abonnements actifs</h6>
                                     <i class="fas fa-credit-card fa-2x text-success opacity-50"></i>
                                 </div>
-                                <h3 class="fw-bold mb-0"><?php echo $abonnements_count; ?></h3>
+                                <h3 class="fw-bold mb-0"><?php echo htmlspecialchars($abonnements_actifs); ?></h3>
                                 <small class="text-muted">Abonnements</small>
                                 <div class="progress mt-3" style="height: 4px;">
                                     <div class="progress-bar bg-success" style="width: 60%"></div>
@@ -81,7 +101,7 @@ try {
                                     <h6 class="card-title fw-bold mb-0">Activités disponibles</h6>
                                     <i class="fas fa-dumbbell fa-2x text-warning opacity-50"></i>
                                 </div>
-                                <h3 class="fw-bold mb-0"><?php echo $activites_count; ?></h3>
+                                <h3 class="fw-bold mb-0"><?php echo htmlspecialchars($activities_available); ?></h3>
                                 <small class="text-muted">Activités</small>
                                 <div class="progress mt-3" style="height: 4px;">
                                     <div class="progress-bar bg-warning" style="width: 85%"></div>
@@ -104,21 +124,12 @@ try {
                                 <div class="d-flex align-items-center mb-3">
                                     <span class="badge bg-success me-2" style="width: 12px; height: 12px; border-radius: 50%;"></span>
                                     <span>Utilisateurs validés</span>
-                                    <span class="ms-auto fw-bold"><?php echo $inscrits_count; ?></span>
+                                    <span class="ms-auto fw-bold"><?php echo htmlspecialchars($utilisateurs_valides); ?></span>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <span class="badge bg-warning me-2" style="width: 12px; height: 12px; border-radius: 50%;"></span>
                                     <span>En attente de validation</span>
-                                    <span class="ms-auto fw-bold">
-                                        <?php 
-                                        try {
-                                            $pending = $bddPDO->query("SELECT COUNT(*) as count FROM utilisateurs WHERE validation_mail = 0")->fetch(PDO::FETCH_ASSOC)['count'];
-                                            echo $pending; // Afficher le nombre d'utilisateurs en attente de validation. fetch veut dire "récupérer"
-                                        } catch (Exception $e) {
-                                            echo "0";
-                                        }
-                                        ?>
-                                    </span>
+                                    <span class="ms-auto fw-bold"><?php echo htmlspecialchars($utilisateurs_en_attente); ?></span>
                                 </div>
                             </div>
                         </div>
