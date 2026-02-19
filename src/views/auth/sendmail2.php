@@ -14,13 +14,13 @@ $mail = new PHPMailer(true);
 $mail-> isSMTP();
 $mail-> Host ='smtp.gmail.com';
 $mail-> SMTPAuth = true;
-$mail-> Username = 'kaba.ismael911@gmail.com';
-$mail-> Password = 'jddjrisglrfgcscc';
+$mail-> Username = '';
+$mail-> Password = '';
 $mail-> SMTPSecure = 'tls';
 $mail-> Port = 587;
 $mail->CharSet = "utf-8";
 
-$mail->setFrom('kaba.ismael911@gmail.com', 'ismael');
+$mail->setFrom('', 'ismael');
 $mail->addAddress($adresse);
 $mail->isHTML(true);
 $mail->Subject = 'confirmation de reinitialisation de mot de passe';
